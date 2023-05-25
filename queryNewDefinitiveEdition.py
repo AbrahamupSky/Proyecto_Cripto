@@ -24,6 +24,7 @@ while True:
   print("6. Desencriptar texto desde un archivo")
   print("7. Salir")
 
+  string = ''
   option = input("Ingresa el número de opción: ")
 
   if option == "1":
@@ -35,7 +36,19 @@ while True:
 
     # Imprimir los resultados
     for row in results:
-      print(row)
+      string += row[0] + '\n'
+
+    encryption_key = Fernet.generate_key()
+    cipher_suite = Fernet(encryption_key)
+
+    encrypted_text = cipher_suite.encrypt(string.encode())
+
+    file_path = "query1.txt"
+    with open(file_path, 'wb') as file:
+      file.write(encrypted_text)
+    
+    print("La clave de encriptación es:", encryption_key.decode())
+
   elif option == "2":
     query2 = "SELECT COUNT(*), role FROM users GROUP BY role"
     cursor.execute(query2)
@@ -45,7 +58,18 @@ while True:
 
     # Imprimir los resultados
     for row in results:
-      print(row)
+      string += f'numero de personas con este rol {row[1]}: {row[0]} \n'
+
+    encryption_key = Fernet.generate_key()
+    cipher_suite = Fernet(encryption_key)
+
+    encrypted_text = cipher_suite.encrypt(string.encode())
+
+    file_path = "query1.txt"
+    with open(file_path, 'wb') as file:
+      file.write(encrypted_text)
+    
+    print("La clave de encriptación es:", encryption_key.decode())
     
   elif option == "3":
     role = int(input("¿Por qué rol quieres agrupar los registros?\nR= "))
@@ -55,9 +79,22 @@ while True:
     # Obtener los resultados
     results = cursor.fetchall()
 
+    string = f'personas con rol {role}: \n'
+
     # Imprimir los resultados
     for row in results:
-      print(row)
+      string += f'{row[0]} \n'
+
+    encryption_key = Fernet.generate_key()
+    cipher_suite = Fernet(encryption_key)
+
+    encrypted_text = cipher_suite.encrypt(string.encode())
+
+    file_path = "query1.txt"
+    with open(file_path, 'wb') as file:
+      file.write(encrypted_text)
+    
+    print("La clave de encriptación es:", encryption_key.decode())
     
   elif option == "4":
     c = input("Ingresa una letra, nombre o apellido:\nR=")
@@ -67,9 +104,22 @@ while True:
     # Obtener los resultados
     results = cursor.fetchall()
 
+    string = f'personas cuyo nombre contiene: {c} \n'
+
     # Imprimir los resultados
     for row in results:
-      print(row)
+      string += row[0] + '\n'
+
+    encryption_key = Fernet.generate_key()
+    cipher_suite = Fernet(encryption_key)
+
+    encrypted_text = cipher_suite.encrypt(string.encode())
+
+    file_path = "query1.txt"
+    with open(file_path, 'wb') as file:
+      file.write(encrypted_text)
+    
+    print("La clave de encriptación es:", encryption_key.decode())
     
   elif option == "5":
     text = input("Ingresa el texto a encriptar: ")
